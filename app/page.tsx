@@ -19,11 +19,11 @@ export default function Home() {
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
-
+        
         const data = await res.json();
         console.log("Weather data:", data);
       } catch (err) {
-        console.error("Error fetching API:", err);
+          console.error("Error fetching API:", err);
       }
     }
 
