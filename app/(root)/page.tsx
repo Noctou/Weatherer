@@ -1,34 +1,29 @@
-'use client';
+"use client";
 
-import {useEffect} from "react";
+import { useEffect } from "react";
 
 export default function Home() {
+  useEffect(() => {
+    async function fetchWeather() {
+      const city: string = "Autonomous Region in Muslim Mindanao"
+      const url = `${process.env.NEXT_PUBLIC_OPENWEATHER_BASE_URL}/weather?q=${city}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&units=metric`;
 
-  // useEffect(() => {
-  //   async function fetchWeather() {
-  //     const lat = 14.5995;
-  //     const lon = 120.9842;
+      console.log("Fetching:", url);
 
-  //     const url = `${process.env.NEXT_PUBLIC_OPENWEATHER_BASE_URL}/weather?lat=${lat}&lon=${lon}&appid=${process.env.NEXT_PUBLIC_OPENWEATHER_API_KEY}&units=metric`;
+      try {
+        const res = await fetch(url);
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
 
-  //     console.log("Fetching:", url);
-
-  //     try {
-  //       const res = await fetch(url);
-
-  //       if (!res.ok) {
-  //         throw new Error(`HTTP error! status: ${res.status}`);
-  //       }
-        
-  //       const data = await res.json();
-  //       console.log("Weather data:", data);
-  //     } catch (err) {
-  //         console.error("Error fetching API:", err);
-  //     }
-  //   }
-
-  //   fetchWeather();
-  // }, []);
+        const data = await res.json();
+        console.log("Weather data:", data);
+      } catch (err) {
+        console.error("Error fetching API:", err);
+      }
+    }
+    fetchWeather();
+  }, []);
 
   return (
     <div>
